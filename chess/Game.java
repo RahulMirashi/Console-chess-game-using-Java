@@ -46,12 +46,12 @@ public class Game {
                 boolean isValid = board.movePiece(from, to, currentPlayer.getColor());
 
                 if (isValid) {
-                    // ✅ Check if opponent is in check after a valid move
+                    // Check if opponent is in check
                     if (board.isKingInCheck(getOpponent().getColor())) {
                         System.out.println("⚠ " + getOpponent().getName() + " is in CHECK!");
                     }
 
-                    // ✅ Optional: Checkmate logic (basic version)
+                    // Checkmate logic
                     if (isCheckmate(getOpponent().getColor())) {
                         board.display();
                         System.out.println("✅ CHECKMATE! " + currentPlayer.getName() + " wins!");
@@ -76,14 +76,11 @@ public class Game {
         return (currentPlayer == white) ? black : white;
     }
 
-    // ✅ Basic Checkmate Detection (no legal moves + king in check)
+    // Basic checkmate detection: king in check and no legal moves
+// Replace the checkmate loop with this
     private boolean isCheckmate(Piece.Color defenderColor) {
-        // If king isn't in check, not checkmate
-        if (!board.isKingInCheck(defenderColor)) {
-            return false;
-        }
+        if (!board.isKingInCheck(defenderColor)) return false;
 
-        // Try all possible moves to escape check
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Piece piece = board.getPiece(new Position(row, col));
@@ -93,10 +90,8 @@ public class Game {
                             Position from = new Position(row, col);
                             Position to = new Position(r, c);
 
-                            // Try a move; if valid and doesn't leave king in check = not checkmate
-                            if (board.movePiece(from, to, defenderColor)) {
-                                // Undo move
-                                board.movePiece(to, from, defenderColor);
+                            // Use silent move check to prevent console spam
+                            if (board.canMovePiece(from, to, defenderColor)) {
                                 return false;
                             }
                         }
@@ -104,6 +99,7 @@ public class Game {
                 }
             }
         }
-        return true; // No escape → checkmate
+        return true;
     }
+
 }
