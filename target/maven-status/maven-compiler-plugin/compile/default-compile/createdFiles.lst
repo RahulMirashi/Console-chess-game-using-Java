@@ -1,0 +1,13 @@
+chess\pieces\Pawn.class
+chess\ConsoleChess.class
+chess\pieces\Knight.class
+chess\pieces\Queen.class
+chess\pieces\King.class
+chess\pieces\Bishop.class
+chess\Game.class
+chess\pieces\Piece$Color.class
+chess\Board.class
+chess\player\Player.class
+chess\pieces\Piece.class
+chess\pieces\Rook.class
+chess\Position.class
